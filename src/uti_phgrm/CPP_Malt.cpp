@@ -153,6 +153,7 @@ class cAppliMalt
           int         mVSNI;
           int         mNbDirPrgD;
           bool        mPrgDReInject;
+          bool        mSpatial;
 };
 
 
@@ -244,7 +245,8 @@ cAppliMalt::cAppliMalt(int argc,char ** argv) :
     mMaxFlow       (false),
     mSzRec         (50),
     mNbDirPrgD     (7),
-    mPrgDReInject  (false)
+    mPrgDReInject  (false),
+    mSpatial       (false)
 {
 
 #if(ELISE_QT_VERSION >= 4)
@@ -390,7 +392,8 @@ cAppliMalt::cAppliMalt(int argc,char ** argv) :
                     << EAM(mNbDirPrgD,"NbDirPrgD",true,"Nb Dir for prog dyn, (rather for tuning)")
                     << EAM(mPrgDReInject,"PrgDReInject",true,"Reinjection mode for Prg Dyn (experimental)")
                     << EAM(OrthoImSupMNT,"OISM",true,"When true footprint of ortho-image=footprint of DSM")
-                );
+                    << EAM(mSpatial,"Spatial",true,"Compute the DTM with spatial optimized parameters")
+            );
 
     if (!MMVisualMode)
     {
@@ -705,6 +708,18 @@ cAppliMalt::cAppliMalt(int argc,char ** argv) :
       // mZoomInit
 
       std::string aFileMM = "MM-Malt.xml";
+
+      if (mSpatial && mType==eGeomImage)
+      {
+          aFileMM="MM-Malt-Spatial.xml";
+          mSzW = 2;
+          mZRegul = 0.12;
+//          mAffineLast = true;
+          mZPas = 1.0;
+          mCostTrans = 4.0;
+          mDefCor = 0.3;
+          mNbMinIV = 2;
+      }
 
       if (0)
       {
@@ -1218,6 +1233,8 @@ cAppliMalt::cAppliMalt(int argc,char ** argv) :
       {
           if (mMCorPonc)
             mCom = mCom + " +ModeAgrCor=eAggregIm1Maitre";
+          else if (mSpatial)
+              mCom = mCom + " +ModeAgrCor=eAggregSymetrique";
           else
             mCom = mCom + " +ModeAgrCor=eAggregMoyMedIm1Maitre";
       }
