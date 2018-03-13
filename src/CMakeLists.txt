@@ -181,7 +181,7 @@ endif()
 INSTALL(TARGETS ${libElise} ARCHIVE DESTINATION ${BUILD_PATH_LIB})
 
 if (${WITH_HEADER_PRECOMP} AND (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_IS_CLANG))
-	enable_precompiled_headers_GCC(StdAfx.h ${libElise} "-fPIC -std=gnu++11")
+	enable_precompiled_headers_GCC(StdAfx.h ${libElise} "-fPIC")
 	set(precompiled_header ${precompiled_header} PARENT_SCOPE)
 endif()
 
@@ -192,6 +192,10 @@ add_subdirectory(CBinaires)
 
 if (WITH_INTERFACE)
 	add_subdirectory(interface)
+endif()
+
+if (NOT ${qt_version} EQUAL 0 AND ${WITH_GI_MicMac}) 
+	add_subdirectory(GI_MicMac)
 endif()
 
 if (NOT ${qt_version} EQUAL 0)
