@@ -2405,10 +2405,9 @@ if(pathToWrite.toStdString()!=""){
     pathsWritten.append(contenu3);
     pathsWritten.append(contenu4);
 
-//    std::string GI_M= GI_MicMacDir.toStdString()+ "/here.txt";;
-//    std::cout << GI_M << std::endl;
+    std::string GI_M= GI_MicMacDir.toStdString()+ "/paths.txt";
+    std::cout << GI_M << std::endl;
 
-   std::string GI_M = "/home/atruffier/micmac/build/paths.txt";
     ofstream fichier(GI_M.c_str(), ios::out | ios::trunc);
 
             if(fichier)
@@ -2434,10 +2433,9 @@ if(pathToWrite.toStdString()!=""){
 }}
 QList<QString> MainWindow::readPaths(){
 
-//    std::string GI_M= GI_MicMacDir.toStdString() + "/here.txt";
-//    std::cout << GI_M << std::endl;
+//§!§!§changed§!§!§
     string contenu0, contenu1, contenu2, contenu3, contenu4;
-    std::string GI_M = "/home/atruffier/micmac/build/paths.txt";
+    std::string GI_M = GI_MicMacDir.toStdString()+ "/paths.txt";
 
     ifstream fichier(GI_M.c_str(), ios::in);
 
