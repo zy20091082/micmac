@@ -129,7 +129,7 @@ OPTION(WITH_QT4 "compile Qt 4 interfaces" OFF )
 OPTION(WITH_CPP11 "Compilateur C++11" ON )
 
 # Graphical Interface GI_MicMac
-OPTION(WITH_GI_MicMac "Graphical Interface GI_MicMac" ON )
+OPTION(WITH_GI_MicMac "Graphical Interface GI_MicMac" OFF )
 
 OPTION(DEPLOY "compile for end-user" OFF)
 
